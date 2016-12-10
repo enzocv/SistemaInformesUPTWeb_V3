@@ -1,0 +1,197 @@
+html, body {
+    height:100% !important;
+} 
+
+.body-padding {
+    padding-top: 60px !important;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+.background{    
+    background-color: white;
+    background-image: url("../img/background2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left top;
+    height: 100%;
+}
+
+@media (max-width: 1200px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+}
+
+.row-login-container{
+    height: 100%;
+}
+
+.login-container{
+    height: 100%;
+}
+
+.modal-form{    
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.modal-body .form-control{
+    margin-bottom: 4%;
+}
+
+.mensaje-login{
+    margin: 1% 0;
+}
+
+.logo{
+/*        
+    background-image: url("../img/logo.png");*/
+    padding: 5% 5% 5% 0;
+    background-size: contain;
+    background-position: left top;
+/*    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left top;    */
+}
+
+.shadow{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    /*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
+}
+
+.brand{
+    
+    /*background-color: #389d9c;*/
+}
+
+.form-reporte{    
+    border-radius: 5px;
+}
+.form-reporte fieldset{
+    border-radius: 5px;
+    background-color: #fafafa;
+    margin: 2% 0;
+    padding: 1% 2%;
+}
+
+.form-reporte fieldset .form-group{
+    padding: 1% 0;
+}
+
+.background-gray{
+    background-color: #e5e5e5;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.form-group .row{
+    margin-bottom: 1%; 
+}
+
+.table-prueba-entrada input{
+    display: block !important; 
+    padding: 0 !important; 
+    margin: 0 !important; 
+    border: 0 !important; 
+    width: 100% !important; 
+    border-radius: 0 !important; 
+    line-height: 1 !important;
+}
+
+
+.table-prueba-entrada td, th {
+    text-align: center;
+    border: solid #202020 1px !important;
+    margin: 0 !important; 
+    padding: 0 !important;
+}
+
+.table-prueba-entrada th {
+    background-color: #2c3e50;
+    font-weight: normal;
+    color:white;
+}
+
+.table-prueba-entrada input {
+    text-align: center;
+}
+
+.input-center{
+    text-align: center;
+}
+
+/*.btn-full{
+    width: 80%;
+}*/
+
+.form-consulta .form-group{
+    margin-bottom: 0;
+}
+
+.btn-controles{
+    width: 100%;
+    border-radius: 0;
+}
+
+.full-height{
+    height: 100%;
+    padding:1%;
+    margin-bottom: 5%;
+    /*background-color: white;*/
+}
+
+.sub-title{
+    margin-top: 2em;
+    margin-bottom: 1em;
+    
+}
+
+.observaciones{
+    margin-bottom: 1.5em;
+}
