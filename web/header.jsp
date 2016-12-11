@@ -96,6 +96,7 @@
                         if (session.getAttribute("codDocente") != null)
                         {
                     %>   
+                    <li><a href="#" id="unidadActiva" style="color: #99ffff;"><%=session.getAttribute("unidadActiva")%></a></li>
                         <li><a href="#" id="loginlink">Bienvenido: <%=session.getAttribute("nombreDocente")%></a></li>
                         <li><a href="cerrarSession.jsp" id="loginlink">Cerrar sesión</a></li>
                     <%          

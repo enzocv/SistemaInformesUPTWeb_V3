@@ -181,7 +181,7 @@
 
                     boolean encuentra = false;
                     
-                    String Campo[] = new String[5];
+                    String Campo[] = new String[6];
                     
                     while (rs.next()) {
                         DatosPruebaEntradaUsuario.add((String) rs.getString(1)); 
@@ -189,6 +189,7 @@
                         DatosPruebaEntradaUsuario.add((String) rs.getString(3)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(4)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(5)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(6)); 
                         
                         encuentra = true;
                     }
@@ -207,7 +208,7 @@
                         rs  =negPortafolio.ConsultaInformeAdministrador(criterio, busqueda);
 
                         boolean encuentra = false;
-                        String Campo[] = new String[8];
+                        String Campo[] = new String[9];
 
                         while (rs.next()) {
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(1))); 
@@ -218,6 +219,7 @@
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(6))); 
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(7))); 
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(8)));
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(9)));
                             encuentra = true;
                         }
 
@@ -233,7 +235,12 @@
                 break;
         }
     }
-
+    
+    String selected = "";
+    String informe = "";
+    if(request.getParameter("tipoReporte")!=null){
+        informe = request.getParameter("tipoReporte");
+    }
 %>
 <head>
     <title>Imprimir Reportes</title>
@@ -250,9 +257,9 @@
                             <label for="select" class="control-label">Tipo de reporte</label>
                             <div class="">
                               <select class="form-control" id="select" name="tipoReporte">
-                                <option value="Entrada">Informe Prueba de Entrada</option>
-                                <option value="Final">Informe Final</option>
-                                <option value="Portafolio">Informe de Portafolio</option>
+                                <option value="Entrada" <%=selected=(informe.equals("Entrada")) ? "selected" : "" %>>Prueba de Entrada</option>
+                                <option value="Final" <%=selected=(informe.equals("Final")) ? "selected" : "" %>>Informe Final del Curso</option>
+                                <option value="Portafolio" <%=selected=(informe.equals("Portafolio")) ? "selected" : "" %>>Portafolio</option>
                               </select>
                             </div>
                         </div>
@@ -268,7 +275,16 @@
                                         <option value="Código Curso">Código Curso</option>
                                         <option value="Nombre Curso">Nombre Curso</option>
                                         <option value="Fecha">Fecha</option>
+                                        
                                         <% 
+                                        if (request.getParameter("Listar")!=null) {
+                                            String tipoInfo = request.getParameter("tipoReporte");
+                                            if (tipoInfo.equals("Portafolio")) {
+                                                %>
+                                                <option value="Unidad">Unidad</option>
+                                                <%
+                                            }                                                        
+                                        }
                                     }
                                     else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
                                         %>
@@ -280,6 +296,14 @@
                                         <option value="Nombre Curso">Nombre Curso</option>
                                         <option value="Fecha">Fecha</option>
                                         <%
+                                        if (request.getParameter("Listar")!=null) {
+                                            String tipoInfo = request.getParameter("tipoReporte");
+                                            if (tipoInfo.equals("Portafolio")) {
+                                                %>
+                                                <option value="Unidad">Unidad</option>
+                                                <%
+                                            }                                                        
+                                        }
                                     }
                                   %>
                               </select>
@@ -310,8 +334,18 @@
                                                         <th>Curso</th>
                                                         <th>Fecha</th>
                                                         <th>Estado</th>
+                                                    <%
+                                                    if (request.getParameter("Listar")!=null) {
+                                                        String tipoInfo = request.getParameter("tipoReporte");
+                                                        if (tipoInfo.equals("Portafolio")) {
+                                                            %>
+                                                            <th>Unidad</th>
+                                                            <%
+                                                        }                                                        
+                                                    }
+                                                    %>
                                                         <th>Controles</th>
-                                                    <% 
+                                                    <%
                                                 }
                                                 else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
                                                     %>
@@ -323,6 +357,16 @@
                                                         <th>Curso</th>
                                                         <th>Fecha</th>
                                                         <th>Estado</th>
+                                                    <%
+                                                    if (request.getParameter("Listar")!=null) {
+                                                        String tipoInfo = request.getParameter("tipoReporte");
+                                                        if (tipoInfo.equals("Portafolio")) {
+                                                            %>
+                                                            <th>Unidad</th>
+                                                            <%
+                                                        }                                                        
+                                                    }
+                                                    %>
                                                         <th>Controles</th>
                                                     <%
                                                 }
@@ -331,8 +375,12 @@
                                     </thead>
                                     <tbody>
                                         <%
+                                            int iaumenta = 5;
                                             if (request.getParameter("Listar")!=null) {
                                                 if (nivelUsuario.equals("Usuario")) {
+                                                    if(tipoInforme.equals("Portafolio")){
+                                                        iaumenta = 6;
+                                                    }
                                                     for (int i = 0; i < DatosPruebaEntradaUsuario.size(); i+=5) {
                                                         %>
                                                             <tr>
@@ -341,34 +389,41 @@
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+2)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+3)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+4)%></td>
-                                                                <td>
+                                                                
                                                                     <%
                                                                         if(tipoInforme.equals("Entrada")){
                                                                     %>
-                                                                            <a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                            <td><a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                         else if(tipoInforme.equals("Final")){
                                                                     %>
-                                                                            <a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                            
+                                                                            <td><a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                         else if(tipoInforme.equals("Portafolio")){
                                                                     %>
-                                                                            <a href="ReportePortafolio.jsp?id_InformeFinal=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                            <td><%=DatosPruebaEntradaUsuario.get(i+5)%></td>
+                                                                            <td><a href="ReportePortafolio.jsp?id_InformeFinal=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                     %>
                                                                     
                                                                     
-                                                                </td>
+                                                                
                                                             </tr>
                                                         <%
                                                     }
                                                 }
                                                 
                                                 if (nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")) {
-                                                    for (int i = 0; i < DatosPruebaEntradaAdministrador.size(); i+=8) {
+                                                    if(tipoInforme.equals("Portafolio")){
+                                                        iaumenta = 9;
+                                                    }else{
+                                                        iaumenta = 8;
+                                                    }
+                                                    for (int i = 0; i < DatosPruebaEntradaAdministrador.size(); i+=iaumenta) {
                                                         %>
                                                             <tr>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i)%></td>
@@ -379,25 +434,25 @@
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+5)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+6)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+7)%></td>
-                                                                <td>
+                                                                
                                                                      <%
                                                                         if(tipoInforme.equals("Entrada")){
                                                                     %>
-                                                                            <a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                    <td><a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                         else if(tipoInforme.equals("Final")){
                                                                     %>
-                                                                            <a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                            <td><a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                         else if(tipoInforme.equals("Portafolio")){
                                                                     %>
-                                                                            <a href="ReportePortafolio.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                            <td><%=DatosPruebaEntradaAdministrador.get(i+8)%></td>
+                                                                            <td><a href="ReportePortafolio.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                     %>
-                                                                </td>
                                                             </tr>
                                                         <%
                                                     }

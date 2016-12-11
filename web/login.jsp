@@ -3,6 +3,7 @@
     Created on : 13-nov-2016, 19:53:14
     Author     : Drei
 --%>
+<%@page import="Negocio.ClsNegocioUnidad"%>
 <%@page import="Negocio.ClsNegocioUsuario" %>
 <%@page import="java.sql.*" %>
 <%@page import="Negocio.ClsNegocioUsuario" %>
@@ -19,11 +20,13 @@
     String pass = request.getParameter("txtPassword");   
     
     ClsNegocioUsuario usuario = new ClsNegocioUsuario();
+    ClsNegocioUnidad negoUni = new ClsNegocioUnidad();
+    
 
     if((usu!=null) && (pass!=null)){
         boolean existe = false;
         rs = usuario.LoginUsuario(usu, pass);
-        
+        String unidadActiva = negoUni.unidadActiva();
         while (rs.next()) {                
                 if (usu.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
                     if ("Activo".equals(rs.getString(5))) {
@@ -31,8 +34,10 @@
                         session.setAttribute("nivelUsuario", rs.getString(4));
                         session.setAttribute("estadoUsuario", rs.getString(5));  
                         session.setAttribute("nombreDocente", rs.getString(6));
+                        session.setAttribute("unidadActiva", unidadActiva);
                         rs.close();
                         usuario.conexion.close();
+                        negoUni.conexion.close();
                         response.sendRedirect("reportesFaltantes.jsp");
                     }
                     else{

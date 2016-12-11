@@ -77,58 +77,94 @@
                                                 while (iterator.hasNext()) {
                                                     ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();
                                                     objenti = (ClsEntidadPruebaCursosFaltantes) iterator.next();
-                                                    if(objenti.getIdUnidad() < Integer.parseInt(objenti.getCuentaCarga())){                                                        
+                                                    
+                                                    if(busqueda.equals("Portafolio")){
+                                                        if(objenti.getIdUnidad() < Integer.parseInt(objenti.getCuentaCarga())){                                                        
                                                     %>
-                                                    <tr>
-                                                        <td><%=objenti.getIdCurso()%></td>
-                                                        <td><%=objenti.getNombreCurso()%></td>
-                                                        <td><%=objenti.getNombreDocente()%></td>
-                                                        <%
-                                                            if(busqueda.equals("Portafolio")){
-                                                                switch(objenti.getIdUnidad()){
-                                                                    case 0:
-                                                                        nombreUnidad = "Unidad I";
-                                                                        break;
-                                                                    case 1:
-                                                                        nombreUnidad = "Unidad II";
-                                                                        break;
-                                                                    case 2:
-                                                                        nombreUnidad = "Unidad III";
-                                                                        break;
-                                                                }
-                                                            %>            
-                                                                <td><%=nombreUnidad%></td>
-                                                            <%
-                                                        }
-                                                        %>
-                                                        <td>
-                                                            <%
-                                                                if(busqueda.equals("Prueba Entrada")){
-                                                                %>
-                                                                    <a href="pruebaEntrada.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
-                                                                <%
-                                                            }
-                                                            %>
-                                                            <%
-                                                                if(busqueda.equals("Informe Final Curso")){
-                                                                %>            
-                                                                <a href="TraerDatosInfo?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
-                                                                <%
-                                                            }
-                                                            %>
+                                                        <tr>
+                                                            <td><%=objenti.getIdCurso()%></td>
+                                                            <td><%=objenti.getNombreCurso()%></td>
+                                                            <td><%=objenti.getNombreDocente()%></td>
                                                             <%
                                                                 if(busqueda.equals("Portafolio")){
+                                                                    switch(objenti.getIdUnidad()){
+                                                                        case 0:
+                                                                            nombreUnidad = "Unidad I";
+                                                                            break;
+                                                                        case 1:
+                                                                            nombreUnidad = "Unidad II";
+                                                                            break;
+                                                                        case 2:
+                                                                            nombreUnidad = "Unidad III";
+                                                                            break;
+                                                                    }
                                                                 %>            
-                                                                <a href="TraerDatosCabeceraPortafolio?busqueda=Portafolio&idUnidad=<%=objenti.getIdUnidad()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <td><%=nombreUnidad%></td>
                                                                 <%
                                                             }
                                                             %>
-                                                            
-                                                        </td>
-                                                        
-                                                    </tr>
-                                                    <%
-                                                    }
+                                                            <td>
+                                                                <%
+                                                                    if(busqueda.equals("Prueba Entrada")){
+                                                                    %>
+                                                                        <a href="pruebaEntrada.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                    if(busqueda.equals("Informe Final Curso")){
+                                                                    %>            
+                                                                    <a href="TraerDatosInfo?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                    if(busqueda.equals("Portafolio")){
+                                                                    %>            
+                                                                    <a href="TraerDatosCabeceraPortafolio?busqueda=Portafolio&idUnidad=<%=objenti.getIdUnidad()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <%
+                                                                }
+                                                                %>
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <%
+                                                        }
+                                                    }else{
+                                                        %>
+                                                        <tr>
+                                                            <td><%=objenti.getIdCurso()%></td>
+                                                            <td><%=objenti.getNombreCurso()%></td>
+                                                            <td><%=objenti.getNombreDocente()%></td>
+                                                            <td>
+                                                                <%
+                                                                    if(busqueda.equals("Prueba Entrada")){
+                                                                    %>
+                                                                        <a href="pruebaEntrada.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                    if(busqueda.equals("Informe Final Curso")){
+                                                                    %>            
+                                                                    <a href="TraerDatosInfo?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                    if(busqueda.equals("Portafolio")){
+                                                                    %>            
+                                                                    <a href="TraerDatosCabeceraPortafolio?busqueda=Portafolio&idUnidad=<%=objenti.getIdUnidad()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                    <%
+                                                                }
+                                                                %>
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <%
+                                                    }                                                  
                                                 }
                                                 datos.conexion.close();
                                             }

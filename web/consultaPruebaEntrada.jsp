@@ -22,9 +22,14 @@
     
     ClsNegocioPruebaEntrada negPruebaEntrada = new ClsNegocioPruebaEntrada();
         
-    
+    String selected = "";
     
     String mensaje = "";
+    
+    String informe = "";
+    if(request.getParameter("Informe")!=null){
+        informe = request.getParameter("Informe");
+    }
 %>
 <head>
     <title>Consulta Informe Prueba Entrada</title>
@@ -41,9 +46,9 @@
                             <label for="select" class="control-label">Tipo Informe</label>
                             <div class="">
                               <select class="form-control" id="select" name="Informe">
-                                  <option value="Entrada">Prueba de Entrada</option>
-                                  <option value="Final">Informe Final del Curso</option>
-                                  <option value="Portafolio">Portafolio</option>
+                                  <option value="Entrada" <%=selected=(informe.equals("Entrada")) ? "selected" : "" %>>Prueba de Entrada</option>
+                                  <option value="Final" <%=selected=(informe.equals("Final")) ? "selected" : "" %>>Informe Final del Curso</option>
+                                  <option value="Portafolio" <%=selected=(informe.equals("Portafolio")) ? "selected" : "" %>>Portafolio</option>
                               </select>
                             </div>
                         </div>
@@ -59,7 +64,16 @@
                                         <option value="Nombre Curso">Nombre Curso</option>
                                         <option value="Fecha">Fecha</option>
                                         <option value="Estado">Estado</option>
+                                        
                                         <% 
+                                        if (request.getParameter("Buscar")!=null) {
+                                            String tipoInfo = request.getParameter("Informe");
+                                            if (tipoInfo.equals("Portafolio")) {
+                                                %>
+                                                <option value="Unidad">Unidad</option>
+                                                <%
+                                            }                                                        
+                                        }
                                     }
                                     else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
                                         %>
@@ -71,7 +85,15 @@
                                         <option value="Nombre Curso">Nombre Curso</option>
                                         <option value="Fecha">Fecha</option>
                                         <option value="Estado">Estado</option>
-                                        <%
+                                        <% 
+                                            if (request.getParameter("Buscar")!=null) {
+                                                String tipoInfo = request.getParameter("Informe");
+                                                if (tipoInfo.equals("Portafolio")) {
+                                                    %>
+                                                    <option value="Unidad">Unidad</option>
+                                                    <%
+                                                }                                                        
+                                            }
                                     }
                                   %>
                               </select>
