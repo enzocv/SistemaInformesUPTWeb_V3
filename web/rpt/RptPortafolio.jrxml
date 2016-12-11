@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="781"/>
+	<property name="ireport.y" value="358"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -121,11 +121,23 @@
 		<field name="cantidad" class="java.lang.Integer"/>
 		<field name="idPortafolio" class="java.lang.Integer"/>
 	</subDataset>
+	<subDataset name="dataset1"/>
+	<subDataset name="New Dataset 3">
+		<parameter name="ID4" class="java.lang.Integer" isForPrompting="false"/>
+		<queryString>
+			<![CDATA[SELECT d.nombreDocente as recepcionadoPor FROM 
+portafolio p INNER JOIN docente d
+ON p.recepcioadoPor = d.codDocente
+WHERE p.idPortafolio = $P{ID4};]]>
+		</queryString>
+		<field name="recepcionadoPor" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset2"/>
 	<parameter name="ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT p.idPortafolio, ca.codDocente, d.nombreDocente ,s.nombreSemestre, ca.idCurso, c.nombre, p.fechaPortafolio, p.estadoPortafolio, p.recepcioadoPor, s.nombreSemestre, ca.alumnosMatriculados, ca.alumnosRetirados, ca.alumnosAbandono,p.estudianteAsisten,p.estudianteAprobado, p.estudianteDesaprobado
+		<![CDATA[SELECT p.idPortafolio, ca.codDocente, d.nombreDocente ,s.nombreSemestre, ca.idCurso, c.nombre, p.fechaPortafolio, p.estadoPortafolio, p.recepcioadoPor, s.nombreSemestre, ca.alumnosMatriculados, ca.alumnosRetirados, ca.alumnosAbandono,p.estudianteAsisten,p.estudianteAprobado, p.estudianteDesaprobado, u.descripcionUnidad
 		FROM portafolio p
 		LEFT JOIN cargaacademica ca
 		ON p.idCargaAcademica= ca.idCargaAcademica
@@ -135,6 +147,8 @@
 		ON d.codDocente = ca.codDocente
 		LEFT JOIN curso c
 		ON ca.idCurso = c.idCurso
+		LEFT JOIN unidad u
+		ON u.idUnidad = p.idUnidad
     WHERE p.idPortafolio=$P{ID};]]>
 	</queryString>
 	<field name="idPortafolio" class="java.lang.Integer"/>
@@ -152,11 +166,12 @@
 	<field name="estudianteAsisten" class="java.lang.Integer"/>
 	<field name="estudianteAprobado" class="java.lang.Integer"/>
 	<field name="estudianteDesaprobado" class="java.lang.Integer"/>
+	<field name="descripcionUnidad" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="67" splitType="Stretch">
+		<band height="93" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="21" width="555" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -171,10 +186,17 @@
 				</textElement>
 				<text><![CDATA[MATERIALES A CONSIGNAR PARA EL PORTAFOLIO]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="61" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcionUnidad}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="447" splitType="Stretch">
+		<band height="307" splitType="Stretch">
 			<staticText>
 				<reportElement x="13" y="20" width="104" height="20"/>
 				<textElement verticalAlignment="Middle">
@@ -353,147 +375,55 @@
 				</textElement>
 				<text><![CDATA[Resumen del curso para la unidad :]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement key="table 3" style="table 3" x="13" y="370" width="528" height="65"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="New Dataset 2">
-						<datasetParameter name="ID3">
-							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
-						</datasetParameter>
-					</datasetRun>
-					<jr:column width="254">
-						<jr:columnHeader style="CH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="254" height="19" forecolor="#FFFFFF"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Material]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
-							<textField>
-								<reportElement x="13" y="0" width="241" height="25"/>
-								<textElement/>
-								<textFieldExpression class="java.lang.String"><![CDATA[$F{material}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90">
-						<jr:columnHeader style="CH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="19" forecolor="#FFFFFF"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Digital]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="25">
-									<printWhenExpression><![CDATA[$F{digital}]]></printWhenExpression>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[X]]></text>
-							</staticText>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90">
-						<jr:columnHeader style="CH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="19" forecolor="#FFFFFF"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Impreso]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="25">
-									<printWhenExpression><![CDATA[$F{impreso}]]></printWhenExpression>
-								</reportElement>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[X]]></text>
-							</staticText>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90">
-						<jr:columnHeader style="CH" height="21" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="90" height="19" forecolor="#FFFFFF"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Cantidad]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="25"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cantidad}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-			<staticText>
-				<reportElement x="13" y="312" width="528" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Material generado por el estudiante en el transcurso del semestre:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="13" y="332" width="528" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso.]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<summary>
-		<band height="743" splitType="Stretch">
+		<band height="430" splitType="Stretch">
 			<staticText>
-				<reportElement style="table" x="13" y="692" width="104" height="32"/>
+				<reportElement style="table" positionType="Float" x="13" y="294" width="104" height="32"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Entregado por:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="CH" x="117" y="672" width="195" height="20" forecolor="#FFFFFF"/>
+				<reportElement style="CH" positionType="Float" x="117" y="274" width="195" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Nombres y Apellidos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="CH" x="312" y="672" width="104" height="20" forecolor="#FFFFFF"/>
+				<reportElement style="CH" positionType="Float" x="312" y="274" width="104" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Fecha de Entrega]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="CH" x="416" y="672" width="125" height="20" forecolor="#FFFFFF"/>
+				<reportElement style="CH" positionType="Float" x="416" y="274" width="125" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Firma]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="table" mode="Transparent" x="117" y="692" width="195" height="32"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement style="table" positionType="Float" mode="Transparent" x="117" y="294" width="195" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreDocente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="table" mode="Transparent" x="312" y="692" width="104" height="32"/>
+				<reportElement style="table" positionType="Float" mode="Transparent" x="312" y="294" width="104" height="32"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fechaPortafolio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table" mode="Transparent" x="416" y="692" width="125" height="32"/>
+				<reportElement style="table" positionType="Float" mode="Transparent" x="416" y="294" width="125" height="32"/>
 				<textElement/>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 2" style="table 2" x="13" y="64" width="528" height="51"/>
+				<reportElement key="table 2" style="table 2" positionType="Float" x="13" y="64" width="528" height="51"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="New Dataset 1">
 						<datasetParameter name="ID2">
@@ -579,18 +509,144 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="13" y="14" width="528" height="20"/>
+				<reportElement positionType="Float" x="13" y="14" width="528" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Material que el docente prepara y entrega a los estudiantes durante la ejecución de los cursos:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="34" width="528" height="20"/>
+				<reportElement positionType="Float" x="13" y="34" width="528" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso,]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 3" style="table 3" positionType="Float" x="13" y="187" width="528" height="65"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 2">
+						<datasetParameter name="ID3">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="254">
+						<jr:columnHeader style="CH" height="21" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="254" height="19" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Material]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
+							<textField>
+								<reportElement x="13" y="0" width="241" height="25"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{material}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="CH" height="21" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Digital]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="25">
+									<printWhenExpression><![CDATA[$F{digital}]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[X]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="CH" height="21" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Impreso]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="25">
+									<printWhenExpression><![CDATA[$F{impreso}]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[X]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="CH" height="21" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="19" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement positionType="Float" x="13" y="129" width="528" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Material generado por el estudiante en el transcurso del semestre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="13" y="149" width="528" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso.]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement style="table 1" positionType="Float" x="117" y="326" width="195" height="32"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 3">
+						<datasetParameter name="ID4">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:listContents height="32" width="195">
+						<textField>
+							<reportElement positionType="Float" x="0" y="0" width="195" height="32"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{recepcionadoPor}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement style="table" positionType="Float" x="13" y="326" width="104" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Entregado por:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="table" positionType="Float" mode="Transparent" x="312" y="326" width="104" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fechaPortafolio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table" positionType="Float" mode="Transparent" x="416" y="326" width="125" height="32"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</summary>

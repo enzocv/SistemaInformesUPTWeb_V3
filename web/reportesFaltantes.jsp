@@ -55,7 +55,7 @@
                                                 if (request.getParameter("Listar")!=null) {
                                                     if(busqueda.equals("Portafolio")){
                                                     %>            
-                                                    <th>Unidad a hacer</th>
+                                                    <th>Unidad por hacer</th>
                                                     <%
                                                     }
                                                 }
@@ -77,6 +77,7 @@
                                                 while (iterator.hasNext()) {
                                                     ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();
                                                     objenti = (ClsEntidadPruebaCursosFaltantes) iterator.next();
+                                                    if(objenti.getIdUnidad() < Integer.parseInt(objenti.getCuentaCarga())){                                                        
                                                     %>
                                                     <tr>
                                                         <td><%=objenti.getIdCurso()%></td>
@@ -127,6 +128,7 @@
                                                         
                                                     </tr>
                                                     <%
+                                                    }
                                                 }
                                                 datos.conexion.close();
                                             }
