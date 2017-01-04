@@ -72,7 +72,7 @@
                                                 busqueda = request.getParameter("tipoReporte");
                                                 dato = datos.hacerInformePruebaFaltante(codDocente,busqueda);//ArrayList
 
-                                                Iterator iterator = dato.iterator();
+                                                Iterator iterator = dato.iterator();    
 
                                                 while (iterator.hasNext()) {
                                                     ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();

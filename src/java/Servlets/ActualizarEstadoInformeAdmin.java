@@ -73,7 +73,8 @@ public class ActualizarEstadoInformeAdmin extends HttpServlet {
         
         String estado2 = estado.equals("Aceptado") ? "Aprobado":"Observado";
         
-        negoFinal.ModificarEstadoInformeFinal(id_Final, estado2);
+        //FALTA RECIBIR EL MORIVO Y AGREGARLO
+        negoFinal.ModificarEstadoInformeFinal(id_Final, estado,"MOTIVO");
         
         try {
             negoFinal.conexion.close();

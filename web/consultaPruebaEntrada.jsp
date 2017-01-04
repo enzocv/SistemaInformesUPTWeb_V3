@@ -145,6 +145,7 @@
                                                     <th>Curso</th>
                                                     <th>Fecha</th>
                                                     <th>Estado</th>
+                                                    <th>Motivo</th>
                                                     
                                                     <%
                                                         if (request.getParameter("Buscar")!=null) {

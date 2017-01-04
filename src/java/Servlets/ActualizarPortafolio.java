@@ -238,8 +238,9 @@ public class ActualizarPortafolio extends HttpServlet {
 
             String id_Portafolio = request.getParameter("id_Portafolio");
             
+            //FALTA AGREGAR EL MOTIVO DE RECHAZO
             ClsNegocioPortafolio negoPorta = new ClsNegocioPortafolio();
-            negoPorta.ModificarEstadoPortafolio(id_Portafolio, estado);
+            negoPorta.ModificarEstadoPortafolio(id_Portafolio, estado, "MOTIVO");
             negoPorta.ModificarRececpcionadoPorPortafolio(id_Portafolio, codDocente);
             response.sendRedirect("imprimirReporte.jsp");
         }
