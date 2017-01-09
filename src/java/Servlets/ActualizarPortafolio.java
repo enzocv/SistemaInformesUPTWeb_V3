@@ -235,12 +235,14 @@ public class ActualizarPortafolio extends HttpServlet {
         } else if (request.getParameter("Aceptar") != null || request.getParameter("Rechazar") != null) {
             String estado = request.getParameter("Aceptar") != null ? "Aprobado":"Observado";
             estado = request.getParameter("Enviar") != null ? "Observado":estado;
-
+            
+            String motivo = estado == "Observado" ? request.getParameter("motivo"):"Correcto";
+            
             String id_Portafolio = request.getParameter("id_Portafolio");
             
             //FALTA AGREGAR EL MOTIVO DE RECHAZO
             ClsNegocioPortafolio negoPorta = new ClsNegocioPortafolio();
-            negoPorta.ModificarEstadoPortafolio(id_Portafolio, estado, "MOTIVO");
+            negoPorta.ModificarEstadoPortafolio(id_Portafolio, estado, motivo);
             negoPorta.ModificarRececpcionadoPorPortafolio(id_Portafolio, codDocente);
             response.sendRedirect("imprimirReporte.jsp");
         }

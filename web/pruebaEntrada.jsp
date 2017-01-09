@@ -255,12 +255,13 @@
     if(request.getParameter("Aceptar")!=null || request.getParameter("Rechazar")!=null){
         
         String IDPruebaEntrada = "";
-        
+        String motivo = "Correcto";
         if(request.getParameter("Aceptar")!=null){
             estado = "Aprobado";
         }
         else if(request.getParameter("Rechazar")!=null){
-            estado = "Rechazado";
+            estado = "Observado";
+            motivo = request.getParameter("motivo");
         }
         
         ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
@@ -274,10 +275,11 @@
         negocioDetalle.conexion.close();
 
         ClsNegocioPruebaEntrada prueba = new ClsNegocioPruebaEntrada();
-        prueba.ModificarEstadoPruebaEntrada(IDPruebaEntrada, estado);
+        prueba.ModificarEstadoPruebaEntrada(IDPruebaEntrada, estado, motivo);
 
         prueba.cst.close();
-        prueba.conexion.close();        
+        prueba.conexion.close();
+        response.sendRedirect("consultaPruebaEntrada.jsp");
     }
     
     
@@ -427,7 +429,7 @@
                             <%if(nivelUsuario.equals("Administrador") || nivelUsuario.equals("Supervisor")){
                                 %>
                                 <input class="btn btn-success" type="submit" name="Aceptar" value="Aceptar">
-                                <input class="btn btn-danger" type="submit" name="Rechazar" value="Rechazar">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Rechazar</button>
                                 <%   
                             }
                             %>
@@ -442,9 +444,36 @@
                         </div>
                         
                     </fieldset>
+                        
+                        
+                  <!-- VENTANA PARA INGRESAR EL MOTIVO DE RECHAZO DEL INFORME -->
+                    <div class="container">
+                      <!-- Modal -->
+                      <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Rechazar Informe</h4>
+                            </div>
+                            <div class="modal-body">
+                                <textarea name="motivo" class="form-control" placeholder="Motivo de Rechazo."></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <input class="btn btn-info" type="submit" name="Rechazar" value="Rechazar">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>     
+                  
                 </form>
             </div>
         </div>   
+        
+                        
         <script>
              var i=<%=CantDetalle%>;
              var calculadoPorcentajes = false;

@@ -269,7 +269,7 @@
                                 <%}%>
                                 <% if(nivelUsuario.equals("Administrador") || nivelUsuario.equals("Supervisor")){ %>
                                     <input class="btn btn-success" type="submit" name="Aceptar" value="Aceptar">
-                                    <input class="btn btn-danger" type="submit" name="Rechazar" value="Rechazar">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Rechazar</button>
                                 <% } %> 
                                 <input class="btn btn-primary" type="submit" name="Informe" value="Hacer Informe">
                                 <a href="consultaPruebaEntrada.jsp" class="btn btn-primary"> Volver</a>
@@ -280,6 +280,30 @@
                             </div>
                                 <input type="hidden" name="idcurso" value="<%=datos1[0]%>"/>
                         </fieldset>
+                        
+                        <!-- VENTANA PARA INGRESAR EL MOTIVO DE RECHAZO DEL INFORME -->
+                        <div class="container">
+                          <!-- Modal -->
+                          <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Rechazar Informe</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea name="motivo" class="form-control" placeholder="Motivo de Rechazo."></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-danger" type="submit" name="Rechazar" value="Rechazar">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

@@ -86,195 +86,221 @@ public class ActualizarInfoFinal extends HttpServlet {
         //processRequest(request, response);
         PrintWriter out = response.getWriter();
         String codDocente = String.valueOf(request.getSession().getAttribute("codDocente"));
-        String guardado = request.getParameter("Guardar") != null ? request.getParameter("Guardar"):"nada";
-        String enviado = request.getParameter("Enviar")   != null ? request.getParameter("Enviar"):"nada";
-        String estado = "nada";
-        String id_Curso = request.getParameter("idCurso");
-        String id_Final = request.getParameter("id_Final");
         
-        /*OBTENER EL ESTADO*/
-        if (guardado.equals("Guardar")) {
-            estado = "Guardado";
-        }
-        else if (enviado.equals("Enviar")) {
-            estado = "Enviado";
-        }
-        /*FIN DE OBTENER EL ESTADO*/
-        
-        /*OBTENER EL ID DE LA CARGA ACADEMICA*/
-        ClsEntidadInformeFinalCurso entiInfoFinal = new ClsEntidadInformeFinalCurso();
-        ClsNegocioInformeFinalCurso negoInfoFinal = new ClsNegocioInformeFinalCurso();
+        if (request.getParameter("Guardar") != null && request.getParameter("Enviar")   != null ) {
+            String guardado = request.getParameter("Guardar") != null ? request.getParameter("Guardar"):"nada";
+            String enviado = request.getParameter("Enviar")   != null ? request.getParameter("Enviar"):"nada";
+            String estado = "nada";
+            String id_Curso = request.getParameter("idCurso");
+            String id_Final = request.getParameter("id_Final");
 
-        String idCargaAcademica = "";
-        ClsNegocioUsuario docente = new ClsNegocioUsuario();
-        ResultSet rsDocente;
-        try {
-            rsDocente = docente.obtenerDatosPruebaEntrada(codDocente, id_Curso);
-            while (rsDocente.next()) {
-                idCargaAcademica = rsDocente.getString(8);
+            /*OBTENER EL ESTADO*/
+            if (guardado.equals("Guardar")) {
+                estado = "Guardado";
             }
-            docente.conexion.close();
-        } catch (Exception ex) {
-            Logger.getLogger(GuardarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        /*FIN DE OBTENER EL ID DE LA CARGA ACADEMICA*/
-        
-        /*RECIBIR TODOS LOS DATOS DEL RESUMEN DEL CURSO*/
-        
-        int cumpliSilabo = Integer.parseInt(    request.getParameter("porSilabo")      != "" ? request.getParameter("porSilabo") : "0");
-        int caliRealizadas = Integer.parseInt(  request.getParameter("caliRealizadas") != "" ? request.getParameter("caliRealizadas"):"0");
-        int laboRealizada = Integer.parseInt(   request.getParameter("laboRealizada")  != "" ? request.getParameter("laboRealizada"):"0");
-        int proyeRealizado = Integer.parseInt(  request.getParameter("proyeRealizado") != "" ? request.getParameter("proyeRealizado"):"0");
-        int estAsiste = Integer.parseInt(       request.getParameter("estAsiste")      != "" ? request.getParameter("estAsiste"):"0");
-        int estAprobado = Integer.parseInt(     request.getParameter("estAprobado")    != "" ? request.getParameter("estAprobado"):"0");
-        int estDesapro = Integer.parseInt(      request.getParameter("estDesapro")     != "" ? request.getParameter("estDesapro"):"0");
-        int notaMasAlta = Integer.parseInt(     request.getParameter("notaMasAlta")    != "" ? request.getParameter("notaMasAlta"):"0");
-        int notaProm = Integer.parseInt(        request.getParameter("notaProm")       != "" ? request.getParameter("notaProm"):"0");
-        int notaMasBaja = Integer.parseInt(     request.getParameter("notaMasBaja")    != "" ? request.getParameter("notaMasBaja"):"0");
+            else if (enviado.equals("Enviar")) {
+                estado = "Enviado";
+            }
+            /*FIN DE OBTENER EL ESTADO*/
 
-        String Lab = request.getParameter("Lab") != null ? "Si" : "No";
-        String Taller = request.getParameter("Taller") != null ? "Si" : "No";
-        
-        /*INGRESAR DATOS A LA ENTIDAD*/
-        entiInfoFinal.setIdCargaAcademica(Integer.parseInt(idCargaAcademica));
-        entiInfoFinal.setEstadoInformeFinalCurso(estado);
-        entiInfoFinal.setCumpliSilabo(cumpliSilabo);
-        entiInfoFinal.setPractiRealizadas(caliRealizadas);
-        entiInfoFinal.setLaboratoRealizadas(laboRealizada);
-        entiInfoFinal.setProyectoRealizado(proyeRealizado);
-        entiInfoFinal.setEstudianteAsiste(estAsiste);
-        entiInfoFinal.setEstudienteAproado(estAprobado);
-        entiInfoFinal.setEstudianteDesaprobado(estDesapro);
-        entiInfoFinal.setNotaMasAlta(notaMasAlta);
-        entiInfoFinal.setNotaPromedio(notaProm);
-        entiInfoFinal.setNotaMasBaja(notaMasBaja);
-        entiInfoFinal.setLab(Lab);
-        entiInfoFinal.setTaller(Taller);
-        
-        negoInfoFinal.ModificarInformeFinal(id_Final, entiInfoFinal);
-        
-        try {
-            negoInfoFinal.conexion.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(GuardarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        /*FINAL RECIBIR TODOS LOS DATOS DEL RESUMEN DEL CURSO*/
-        
-        /*OBTENER EL ID DEL INFORME FINAL DEL CURSO*/
-        ClsNegocioCapadidadInformeFinalCurso negocioCapacidadIdInfo = new ClsNegocioCapadidadInformeFinalCurso();
-        negocioCapacidadIdInfo.EliminarDetallInfoFinalTodo(id_Final);
-        try {
-            negocioCapacidadIdInfo.conexion.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ActualizarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        /* RECIBIR DATOS DE CAPACIDADES */
-        ArrayList<String> datosTabla = new ArrayList<>();
-        ArrayList<String> datosMedidasCorrectivas = new ArrayList<>();
+            /*OBTENER EL ID DE LA CARGA ACADEMICA*/
+            ClsEntidadInformeFinalCurso entiInfoFinal = new ClsEntidadInformeFinalCurso();
+            ClsNegocioInformeFinalCurso negoInfoFinal = new ClsNegocioInformeFinalCurso();
 
-        Enumeration parameterList = request.getParameterNames();
-        while( parameterList.hasMoreElements() )
-        {
-          String sName = parameterList.nextElement().toString();
-          if(sName.toLowerCase().startsWith("detalle")){
-            datosTabla.add(request.getParameter(sName));
-          }
-          if(sName.toLowerCase().startsWith("medcorrectiva")){
-            datosMedidasCorrectivas.add(request.getParameter(sName));
-          }
-        }
-        
-        ClsEntidadCacidadInformeFinalCurso entiCapa = new ClsEntidadCacidadInformeFinalCurso();
-        ClsNegocioCapadidadInformeFinalCurso negoCapa = new ClsNegocioCapadidadInformeFinalCurso();
-        int l = 0;
-        for (int i = 0; i < datosTabla.size(); i+=6) {
-            entiCapa.setDescripcion(datosTabla.get(i));
+            String idCargaAcademica = "";
+            ClsNegocioUsuario docente = new ClsNegocioUsuario();
+            ResultSet rsDocente;
+            try {
+                rsDocente = docente.obtenerDatosPruebaEntrada(codDocente, id_Curso);
+                while (rsDocente.next()) {
+                    idCargaAcademica = rsDocente.getString(8);
+                }
+                docente.conexion.close();
+            } catch (Exception ex) {
+                Logger.getLogger(GuardarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            /*FIN DE OBTENER EL ID DE LA CARGA ACADEMICA*/
 
-            String n = datosTabla.get(i+1).toLowerCase().equals("x") ? "Si":"No";
-            String p = datosTabla.get(i+2).toLowerCase().equals("x") ? "Si":"No";
-            String a = datosTabla.get(i+3).toLowerCase().equals("x") ? "Si":"No";
-            String b = datosTabla.get(i+4).toLowerCase().equals("x") ? "Si":"No";
-            String m = datosTabla.get(i+5).toLowerCase().equals("x") ? "Si":"No";
+            /*RECIBIR TODOS LOS DATOS DEL RESUMEN DEL CURSO*/
 
-            if(n.equals("Si")) entiCapa.setIdnivelcapacidad(1);
-            if(p.equals("Si")) entiCapa.setIdnivelcapacidad(11);
-            if(a.equals("Si")) entiCapa.setIdnivelcapacidad(21);
-            if(b.equals("Si")) entiCapa.setIdnivelcapacidad(31);
-            if(m.equals("Si")) entiCapa.setIdnivelcapacidad(41);
+            int cumpliSilabo = Integer.parseInt(    request.getParameter("porSilabo")      != "" ? request.getParameter("porSilabo") : "0");
+            int caliRealizadas = Integer.parseInt(  request.getParameter("caliRealizadas") != "" ? request.getParameter("caliRealizadas"):"0");
+            int laboRealizada = Integer.parseInt(   request.getParameter("laboRealizada")  != "" ? request.getParameter("laboRealizada"):"0");
+            int proyeRealizado = Integer.parseInt(  request.getParameter("proyeRealizado") != "" ? request.getParameter("proyeRealizado"):"0");
+            int estAsiste = Integer.parseInt(       request.getParameter("estAsiste")      != "" ? request.getParameter("estAsiste"):"0");
+            int estAprobado = Integer.parseInt(     request.getParameter("estAprobado")    != "" ? request.getParameter("estAprobado"):"0");
+            int estDesapro = Integer.parseInt(      request.getParameter("estDesapro")     != "" ? request.getParameter("estDesapro"):"0");
+            int notaMasAlta = Integer.parseInt(     request.getParameter("notaMasAlta")    != "" ? request.getParameter("notaMasAlta"):"0");
+            int notaProm = Integer.parseInt(        request.getParameter("notaProm")       != "" ? request.getParameter("notaProm"):"0");
+            int notaMasBaja = Integer.parseInt(     request.getParameter("notaMasBaja")    != "" ? request.getParameter("notaMasBaja"):"0");
 
-            entiCapa.setIdinformefinalcurso(Integer.parseInt(id_Final));
+            String Lab = request.getParameter("Lab") != null ? "Si" : "No";
+            String Taller = request.getParameter("Taller") != null ? "Si" : "No";
 
-            entiCapa.setMedidaCorectiva(datosMedidasCorrectivas.get(l));
-            l++;
-            negoCapa.AgregarDetallePruebaEntrada(entiCapa);
+            /*INGRESAR DATOS A LA ENTIDAD*/
+            entiInfoFinal.setIdCargaAcademica(Integer.parseInt(idCargaAcademica));
+            entiInfoFinal.setEstadoInformeFinalCurso(estado);
+            entiInfoFinal.setCumpliSilabo(cumpliSilabo);
+            entiInfoFinal.setPractiRealizadas(caliRealizadas);
+            entiInfoFinal.setLaboratoRealizadas(laboRealizada);
+            entiInfoFinal.setProyectoRealizado(proyeRealizado);
+            entiInfoFinal.setEstudianteAsiste(estAsiste);
+            entiInfoFinal.setEstudienteAproado(estAprobado);
+            entiInfoFinal.setEstudianteDesaprobado(estDesapro);
+            entiInfoFinal.setNotaMasAlta(notaMasAlta);
+            entiInfoFinal.setNotaPromedio(notaProm);
+            entiInfoFinal.setNotaMasBaja(notaMasBaja);
+            entiInfoFinal.setLab(Lab);
+            entiInfoFinal.setTaller(Taller);
+
+            negoInfoFinal.ModificarInformeFinal(id_Final, entiInfoFinal);
+
+            try {
+                negoInfoFinal.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GuardarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            /*FINAL RECIBIR TODOS LOS DATOS DEL RESUMEN DEL CURSO*/
+
+            /*OBTENER EL ID DEL INFORME FINAL DEL CURSO*/
+            ClsNegocioCapadidadInformeFinalCurso negocioCapacidadIdInfo = new ClsNegocioCapadidadInformeFinalCurso();
+            negocioCapacidadIdInfo.EliminarDetallInfoFinalTodo(id_Final);
+            try {
+                negocioCapacidadIdInfo.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ActualizarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            /* RECIBIR DATOS DE CAPACIDADES */
+            ArrayList<String> datosTabla = new ArrayList<>();
+            ArrayList<String> datosMedidasCorrectivas = new ArrayList<>();
+
+            Enumeration parameterList = request.getParameterNames();
+            while( parameterList.hasMoreElements() )
+            {
+              String sName = parameterList.nextElement().toString();
+              if(sName.toLowerCase().startsWith("detalle")){
+                datosTabla.add(request.getParameter(sName));
+              }
+              if(sName.toLowerCase().startsWith("medcorrectiva")){
+                datosMedidasCorrectivas.add(request.getParameter(sName));
+              }
+            }
+
+            ClsEntidadCacidadInformeFinalCurso entiCapa = new ClsEntidadCacidadInformeFinalCurso();
+            ClsNegocioCapadidadInformeFinalCurso negoCapa = new ClsNegocioCapadidadInformeFinalCurso();
+            int l = 0;
+            for (int i = 0; i < datosTabla.size(); i+=6) {
+                entiCapa.setDescripcion(datosTabla.get(i));
+
+                String n = datosTabla.get(i+1).toLowerCase().equals("x") ? "Si":"No";
+                String p = datosTabla.get(i+2).toLowerCase().equals("x") ? "Si":"No";
+                String a = datosTabla.get(i+3).toLowerCase().equals("x") ? "Si":"No";
+                String b = datosTabla.get(i+4).toLowerCase().equals("x") ? "Si":"No";
+                String m = datosTabla.get(i+5).toLowerCase().equals("x") ? "Si":"No";
+
+                if(n.equals("Si")) entiCapa.setIdnivelcapacidad(1);
+                if(p.equals("Si")) entiCapa.setIdnivelcapacidad(11);
+                if(a.equals("Si")) entiCapa.setIdnivelcapacidad(21);
+                if(b.equals("Si")) entiCapa.setIdnivelcapacidad(31);
+                if(m.equals("Si")) entiCapa.setIdnivelcapacidad(41);
+
+                entiCapa.setIdinformefinalcurso(Integer.parseInt(id_Final));
+
+                entiCapa.setMedidaCorectiva(datosMedidasCorrectivas.get(l));
+                l++;
+                negoCapa.AgregarDetallePruebaEntrada(entiCapa);
+
+            }
+            try {
+                negoCapa.conexion.close();
+
+                /*FIR DE RECIBIR DATOS DE CAPACIDADES*/
+                /*FIN*/
+            } catch (SQLException ex) {
+                Logger.getLogger(ActualizarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ClsEntidadObservaFinalCurso entiObserva = new ClsEntidadObservaFinalCurso();
+            ClsNegocioObservacionesInformeFinalCurso negoObserva = new ClsNegocioObservacionesInformeFinalCurso();
+
+
+            negoObserva.EliminarObservaInfoFinalTodo(id_Final);
+
+            ArrayList<String> datosObservaciones = new ArrayList<>();
+
+            Enumeration parameterListObs = request.getParameterNames();
+            while( parameterListObs.hasMoreElements() )
+            {
+              String sName = parameterListObs.nextElement().toString();
+              if(sName.toLowerCase().startsWith("obs")){
+                datosObservaciones.add(request.getParameter(sName));
+              }
+            }  
+
+            String materal = request.getParameter("usoAulamaterialcurso") != null ? "Material del Curso" : "No";
+            String foros = request.getParameter("usoAulaforos") != null ? "Foros" : "No";
+            String cuestionarios = request.getParameter("usoAulacuestionarios") != null ? "Cuestionarios" : "No";
+            String examenes = request.getParameter("usoAulaexamenesvirtuales") != null ? "Examenes Virtuales" : "No";
+            String tareas = request.getParameter("usoAulatareasencargadas") != null ? "Tareas Encargadas" : "No";
+            String ppt = request.getParameter("usoAulaslideshow") != null ? "Presentaciones" : "No";
+            String total = materal + "," + foros + "," + cuestionarios + "," + examenes + "," + tareas + "," + ppt;
+
+            int p = 1;
+            String da[] = new String[9];
+            int idObs = 1;
+            int i = 0;
+            for ( i = 0; i < datosObservaciones.size(); i++) {
+                entiObserva.setIdObservaciones(idObs);
+                entiObserva.setIdinformefinalcurso(Integer.parseInt(id_Final));
+                if (idObs == 4) {
+                    da[i] = total;
+                    entiObserva.setDescripcion(total);
+                    i--;
+                }
+                else{
+                    da[i] = datosObservaciones.get(i);
+                    entiObserva.setDescripcion(datosObservaciones.get(i));
+                }
+
+                idObs++;
+                negoObserva.AgregarPruebaEntrada(entiObserva);
+            }
+
+            try {
+                negoObserva.cst.close();
+                negoObserva.conexion.close();
+            } catch (Exception e) {
+            }
+
+            /* fin recibir */
+
+            response.sendRedirect("reportesFaltantes.jsp");
             
         }
-        try {
-            negoCapa.conexion.close();
+        else if(request.getParameter("Rechazar") != null && request.getParameter("Aceptar") != null ){
             
-            /*FIR DE RECIBIR DATOS DE CAPACIDADES*/
-            /*FIN*/
-        } catch (SQLException ex) {
-            Logger.getLogger(ActualizarInfoFinal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        ClsEntidadObservaFinalCurso entiObserva = new ClsEntidadObservaFinalCurso();
-        ClsNegocioObservacionesInformeFinalCurso negoObserva = new ClsNegocioObservacionesInformeFinalCurso();
-        
-        
-        negoObserva.EliminarObservaInfoFinalTodo(id_Final);
-        
-        ArrayList<String> datosObservaciones = new ArrayList<>();
+            String idCurso = request.getParameter("idCurso");
+            String estado = request.getParameter("estado");
+            String id_Final = request.getParameter("id_Final");
+            String motivo = request.getParameter("motivo") != null ? request.getParameter("motivo"):"Correcto";
 
-        Enumeration parameterListObs = request.getParameterNames();
-        while( parameterListObs.hasMoreElements() )
-        {
-          String sName = parameterListObs.nextElement().toString();
-          if(sName.toLowerCase().startsWith("obs")){
-            datosObservaciones.add(request.getParameter(sName));
-          }
-        }  
+            ClsNegocioInformeFinalCurso negoFinal = new ClsNegocioInformeFinalCurso();
 
-        String materal = request.getParameter("usoAulamaterialcurso") != null ? "Material del Curso" : "No";
-        String foros = request.getParameter("usoAulaforos") != null ? "Foros" : "No";
-        String cuestionarios = request.getParameter("usoAulacuestionarios") != null ? "Cuestionarios" : "No";
-        String examenes = request.getParameter("usoAulaexamenesvirtuales") != null ? "Examenes Virtuales" : "No";
-        String tareas = request.getParameter("usoAulatareasencargadas") != null ? "Tareas Encargadas" : "No";
-        String ppt = request.getParameter("usoAulaslideshow") != null ? "Presentaciones" : "No";
-        String total = materal + "," + foros + "," + cuestionarios + "," + examenes + "," + tareas + "," + ppt;
+            String estado2 = estado.equals("Aceptado") ? "Aprobado":"Observado";
 
-        int p = 1;
-        String da[] = new String[9];
-        int idObs = 1;
-        int i = 0;
-        for ( i = 0; i < datosObservaciones.size(); i++) {
-            entiObserva.setIdObservaciones(idObs);
-            entiObserva.setIdinformefinalcurso(Integer.parseInt(id_Final));
-            if (idObs == 4) {
-                da[i] = total;
-                entiObserva.setDescripcion(total);
-                i--;
-            }
-            else{
-                da[i] = datosObservaciones.get(i);
-                entiObserva.setDescripcion(datosObservaciones.get(i));
+            //FALTA RECIBIR EL MORIVO Y AGREGARLO
+            negoFinal.ModificarEstadoInformeFinal(id_Final, estado,motivo);
+
+            try {
+                negoFinal.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ActualizarEstadoInformeAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            idObs++;
-            negoObserva.AgregarPruebaEntrada(entiObserva);
+            response.sendRedirect("imprimirReporte.jsp");
         }
-        
-        try {
-            negoObserva.cst.close();
-            negoObserva.conexion.close();
-        } catch (Exception e) {
-        }
-        
-        /* fin recibir */
-        
-        response.sendRedirect("reportesFaltantes.jsp");
         
     }
 
