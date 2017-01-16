@@ -49,6 +49,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nombre del curso</th>
+                                            <th>Sección</th>
                                             <th>Nombre del docente</th>
                                             <%
                                                 String busqueda = request.getParameter("tipoReporte");
@@ -84,6 +85,7 @@
                                                         <tr>
                                                             <td><%=objenti.getIdCurso()%></td>
                                                             <td><%=objenti.getNombreCurso()%></td>
+                                                            <td><%=objenti.getSeccion()%></td>
                                                             <td><%=objenti.getNombreDocente()%></td>
                                                             <%
                                                                 if(busqueda.equals("Portafolio")){
@@ -136,6 +138,7 @@
                                                         <tr>
                                                             <td><%=objenti.getIdCurso()%></td>
                                                             <td><%=objenti.getNombreCurso()%></td>
+                                                            <td><%=objenti.getSeccion()%></td>
                                                             <td><%=objenti.getNombreDocente()%></td>
                                                             <td>
                                                                 <%

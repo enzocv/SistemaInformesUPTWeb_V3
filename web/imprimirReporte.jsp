@@ -51,7 +51,7 @@
 
                     boolean encuentra = false;
                     
-                    String Campo[] = new String[5];
+                    String Campo[] = new String[6];
                     
                     while (rs.next()) {
                         DatosPruebaEntradaUsuario.add((String) rs.getString(1)); 
@@ -59,6 +59,8 @@
                         DatosPruebaEntradaUsuario.add((String) rs.getString(3)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(4)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(5)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(6)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(7)); 
                         
                         encuentra = true;
                     }
@@ -77,7 +79,7 @@
                     rs  =negPruebaEntrada.ConsultaInformeAdministrador(criterio, busqueda);
 
                     boolean encuentra = false;
-                    String Campo[] = new String[8];
+                    String Campo[] = new String[10];
                     
                     while (rs.next()) {
                         DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(1))); 
@@ -88,6 +90,7 @@
                         DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(6))); 
                         DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(7))); 
                         DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(8))); 
+                        DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(9)));
                         
                         
                         
@@ -126,6 +129,7 @@
                         DatosPruebaEntradaUsuario.add((String) rs.getString(3)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(4)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(5)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(6)); 
                         
                         encuentra = true;
                     }
@@ -155,6 +159,7 @@
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(6))); 
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(7))); 
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(8)));
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(9)));
                             encuentra = true;
                         }
 
@@ -190,6 +195,7 @@
                         DatosPruebaEntradaUsuario.add((String) rs.getString(4)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(5)); 
                         DatosPruebaEntradaUsuario.add((String) rs.getString(6)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(7)); 
                         
                         encuentra = true;
                     }
@@ -220,6 +226,7 @@
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(7))); 
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(8)));
                             DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(9)));
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(10)));
                             encuentra = true;
                         }
 
@@ -332,6 +339,7 @@
                                                         <th>ID</th>
                                                         <th>Cod Curso</th>
                                                         <th>Curso</th>
+                                                        <th>Sección</th>
                                                         <th>Fecha</th>
                                                         <th>Estado</th>
                                                     <%
@@ -355,6 +363,7 @@
                                                         <th>Cod Curso</th>
                                                         <th>Semestre</th>
                                                         <th>Curso</th>
+                                                        <th>Sección</th>
                                                         <th>Fecha</th>
                                                         <th>Estado</th>
                                                     <%
@@ -375,18 +384,19 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            int iaumenta = 5;
+                                            int iaumenta = 6;
                                             if (request.getParameter("Listar")!=null) {
                                                 if (nivelUsuario.equals("Usuario")) {
                                                     if(tipoInforme.equals("Portafolio")){
-                                                        iaumenta = 6;
+                                                        iaumenta = 7;
                                                     }
-                                                    for (int i = 0; i < DatosPruebaEntradaUsuario.size(); i+=5) {
+                                                    for (int i = 0; i < DatosPruebaEntradaUsuario.size(); i+=iaumenta) {
                                                         %>
                                                             <tr>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+1)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+2)%></td>
+                                                                <td><%=DatosPruebaEntradaUsuario.get(i+6)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+3)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+4)%></td>
                                                                 
@@ -419,9 +429,9 @@
                                                 
                                                 if (nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")) {
                                                     if(tipoInforme.equals("Portafolio")){
-                                                        iaumenta = 9;
+                                                        iaumenta = 10;
                                                     }else{
-                                                        iaumenta = 8;
+                                                        iaumenta = 9;
                                                     }
                                                     for (int i = 0; i < DatosPruebaEntradaAdministrador.size(); i+=iaumenta) {
                                                         %>
@@ -429,26 +439,34 @@
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+1)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+2)%></td>
-                                                                <td><%=DatosPruebaEntradaAdministrador.get(i+3)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+4)%></td>
+                                                                <td><%=DatosPruebaEntradaAdministrador.get(i+3)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+5)%></td>
-                                                                <td><%=DatosPruebaEntradaAdministrador.get(i+6)%></td>
-                                                                <td><%=DatosPruebaEntradaAdministrador.get(i+7)%></td>
+                                                                                                                                
                                                                 
                                                                      <%
                                                                         if(tipoInforme.equals("Entrada")){
                                                                     %>
-                                                                    <td><a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+8)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+6)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+7)%></td>
+                                                                        <td><a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                         else if(tipoInforme.equals("Final")){
                                                                     %>
-                                                                            <td><a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+8)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+6)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+7)%></td>
+                                                                        <td><a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }
                                                                         else if(tipoInforme.equals("Portafolio")){
                                                                     %>
-                                                                            <td><%=DatosPruebaEntradaAdministrador.get(i+8)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+9)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+6)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+7)%></td>
+                                                                        <td><%=DatosPruebaEntradaAdministrador.get(i+8)%></td>
                                                                             <td><a href="ReportePortafolio.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a></td>
                                                                     <%
                                                                         }

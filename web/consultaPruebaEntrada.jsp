@@ -27,6 +27,9 @@
     String mensaje = "";
     
     String informe = "";
+    
+    String motivo = "";
+    
     if(request.getParameter("Informe")!=null){
         informe = request.getParameter("Informe");
     }
@@ -124,6 +127,8 @@
                                                     <th>Curso</th>
                                                     <th>Fecha</th>
                                                     <th>Estado</th>
+                                                    <th>Sección</th>
+                                                    <th>Motivo</th>
                                                                                                        
                                                     <% 
                                                     if (request.getParameter("Buscar")!=null) {
@@ -145,6 +150,8 @@
                                                     <th>Curso</th>
                                                     <th>Fecha</th>
                                                     <th>Estado</th>
+                                                    <th>Sección</th>
+                                                    <th>Motivo</th>
                                                     
                                                     <%
                                                         if (request.getParameter("Buscar")!=null) {
@@ -204,13 +211,25 @@
                                                             <%  String eva = rs.getString(7) != null ? rs.getString(7):"-" ;
                                                             %>
                                                                 <td> <%= eva %> </td>
+                                                                
+                                                            <%if(tipoInfo.equals("Entrada")){%>
+                                                                <td> <%= rs.getString(6)%> </td>
+                                                                <td> <%= motivo = (rs.getString(7) != null)? rs.getString(7) : "-" %> </td>
+                                                                <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
+                                                            <% } 
+                                                            else if(tipoInfo.equals("Final")) {%>
+                                                                <td> <%= rs.getString(6)%> </td>
+                                                                <td> <%= motivo = (rs.getString(7) != null)? rs.getString(7) : "-" %> </td>
+
                                                                 <td> <a href="BucarInfoFinal?id_Final=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
                                                             <% } 
                                                             else if(tipoInfo.equals("Portafolio")) {%>
                                                                 <td> <%= rs.getString(7)%> </td>
-                                                            <%  String eva = rs.getString(8) != null ? rs.getString(8):"-" ;
-                                                            %>
+                                                                <%  /*String*/ eva = rs.getString(8) != null ? rs.getString(8):"-" ;
+                                                                %>
                                                                 <td> <%= eva %> </td>
+                                                                <td> <%= motivo = (rs.getString(8) != null)? rs.getString(8) : "-" %> </td>
+                                                                <td> <%= rs.getString(6)%> </td>
                                                                 <td> <a href="TraerDatosCompletosPortafolio?id_Portafolio=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe P</a></td>
                                                             <% } %>
                                                             
@@ -237,9 +256,9 @@
                                                     }
                                                     
                                                 }
-                                                else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
+                                                    if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
                                                     
-                                                    String tipoInfo = request.getParameter("Informe");
+                                                    /*String*/ tipoInfo = request.getParameter("Informe");
                                                     if (tipoInfo.equals("Final")) {
                                                         rs = negoInfo.ConsultaAvanzaInformeFinal(criterio, busqueda);
                                                     }
@@ -252,7 +271,7 @@
 
                                                     
 
-                                                    boolean encuentra = false;
+                                                    /*boolean*/ encuentra = false;
                                                     
                                                     while (rs.next()) {
                                                         %>
@@ -286,6 +305,18 @@
                                                             %>
                                                             <td> <%= rs.getString(10)%> </td>
                                                             <td> <%= eva %> </td>
+                                                            
+                                                            <%if(tipoInfo.equals("Entrada")){%>
+                                                                <td> <%= motivo = (rs.getString(10) != null)? rs.getString(10) : "-" %> </td>
+                                                                <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
+                                                            <% } 
+                                                            else if(tipoInfo.equals("Final")) {%>
+                                                                <td> <%= motivo = (rs.getString(10) != null)? rs.getString(10) : "-" %> </td>
+                                                                <td> <a href="BucarInfoFinal?id_Final=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                            <% } 
+                                                            else if(tipoInfo.equals("Portafolio")) {%>
+                                                                <td> <%= motivo = (rs.getString(11) != null)? rs.getString(11) : "-" %> </td>
+                                                                <td> <%= rs.getString(10)%> </td>
                                                                 <td> <a href="TraerDatosCompletosPortafolio?id_Portafolio=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe P</a></td>
                                                             <% } %>
                                                         </tr>
