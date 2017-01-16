@@ -274,7 +274,7 @@
         negocioDetalle.conexion.close();
 
         ClsNegocioPruebaEntrada prueba = new ClsNegocioPruebaEntrada();
-        prueba.ModificarEstadoPruebaEntrada(IDPruebaEntrada, estado);
+        prueba.ModificarEstadoPruebaEntrada(IDPruebaEntrada, estado,"");
 
         prueba.cst.close();
         prueba.conexion.close();        

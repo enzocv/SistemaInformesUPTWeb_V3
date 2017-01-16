@@ -66,6 +66,7 @@
                                             <th>Nombre Docente</th>
                                             <th>Cod Curso</th>
                                             <th>Curso</th>
+                                            <th>Sección</th>
                                             <th>Fecha</th>
                                             <th>Estado</th>
                                         </tr>
@@ -95,6 +96,7 @@
                                                             <td> <%= objenti.getNombreDocente()%> </td>
                                                             <td> <%= objenti.getIdCurso()%> </td>
                                                             <td> <%= objenti.getNombreCurso()%> </td>
+                                                            <td> <%= objenti.getSeccion()%> </td>
                                                             <%
                                                                 if(objenti.getFechaPrueba()!=null){
                                                                 %>

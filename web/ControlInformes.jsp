@@ -66,6 +66,14 @@
                                             <th>Nombre Docente</th>
                                             <th>Cod Curso</th>
                                             <th>Curso</th>
+                                            <th>Sección</th>
+                                            <%
+                                                if(request.getParameter("Informe").equals("Portafolio")){
+                                                %>
+                                                    <th>Unidad</th>
+                                                <%
+                                                }
+                                            %>
                                             <th>Fecha</th>
                                             <th>Estado</th>
                                         </tr>
@@ -92,7 +100,22 @@
                                                             <td> <%= objenti.getNombreDocente()%> </td>
                                                             <td> <%= objenti.getIdCurso()%> </td>
                                                             <td> <%= objenti.getNombreCurso()%> </td>
+                                                            <td> <%= objenti.getSeccion()%> </td>
+                                                            
                                                             <%
+                                                                if(tipoInforme.equals("Portafolio")){
+                                                                    if(objenti.getDescripcionUnidad() != null){
+                                                                    %>
+                                                                        <td> <%= objenti.getDescripcionUnidad()%> </td>
+                                                                    <%
+                                                                    }
+                                                                    else{
+                                                                    %>
+                                                                        <td>Todas</td>
+                                                                    <%
+                                                                    }
+                                                                }
+
                                                                 if(objenti.getFechaPrueba()!=null){
                                                                 %>
                                                                     <td> <%= objenti.getFechaPrueba()%> </td>
@@ -104,7 +127,7 @@
                                                                 <%
                                                                 }
                                                             %>
-                                                            <%
+                                                            <%  
                                                                 if(objenti.getEstadoPrueba().equals("SIN COMPLETAR")){
                                                                     %>
                                                                     <td class="btn-danger"> <%= objenti.getEstadoPrueba()%> </td>
