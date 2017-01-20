@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-<!--        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
+        <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -84,11 +84,23 @@
                                     }%>
                             </ul>                    
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="">
-                                Ayuda
-                            </a>                  
-                        </li>
+                        <%
+                                    if(session.getAttribute("nivelUsuario")!=null)
+                                    {
+                                        if (session.getAttribute("nivelUsuario").equals("Administrador") || session.getAttribute("nivelUsuario").equals("Supervisor"))
+                                        {
+                                %>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-hashpopup="false" area-expanded="false">
+                                                    Mantenimiento<span class="caret"></span>
+                                                </a>         
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="Mantenimiento/MantenimientoCursos.jsp">Cursos</a></li>
+                                                </ul>
+                                            </li>
+                        <%
+                                        }
+                                    }%>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
