@@ -40,6 +40,14 @@
         <servlet-name>ActualizarPortafolio</servlet-name>
         <servlet-class>Servlets.ActualizarPortafolio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarCursoServlet</servlet-name>
+        <servlet-class>Servlets.mantenimientoCurso.ModificarCursoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GuardarCursoServlet</servlet-name>
+        <servlet-class>Servlets.mantenimientoCurso.GuardarCursoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
         <url-pattern>/GuardarInfoFinal</url-pattern>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>ActualizarPortafolio</servlet-name>
         <url-pattern>/ActualizarPortafolio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarCursoServlet</servlet-name>
+        <url-pattern>/ModificarCursoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarCursoServlet</servlet-name>
+        <url-pattern>/GuardarCursoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
