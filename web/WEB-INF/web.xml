@@ -48,6 +48,18 @@
         <servlet-name>GuardarCursoServlet</servlet-name>
         <servlet-class>Servlets.mantenimientoCurso.GuardarCursoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuardarDocenteServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Docente.GuardarDocenteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EliminarDocenteServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Docente.EliminarDocenteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarDocenteServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Docente.ModificarDocenteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
         <url-pattern>/GuardarInfoFinal</url-pattern>
@@ -95,6 +107,18 @@
     <servlet-mapping>
         <servlet-name>GuardarCursoServlet</servlet-name>
         <url-pattern>/GuardarCursoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarDocenteServlet</servlet-name>
+        <url-pattern>/GuardarDocenteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarDocenteServlet</servlet-name>
+        <url-pattern>/EliminarDocenteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarDocenteServlet</servlet-name>
+        <url-pattern>/ModificarDocenteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
