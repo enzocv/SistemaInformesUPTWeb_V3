@@ -1,5 +1,7 @@
 
 
+<%@page import="Entidad.ClsEntidadSemestre"%>
+<%@page import="Negocio.ClsNegocioSemestre"%>
 <%@page import="Entidad.ClsEntidadDocente"%>
 <%@page import="Negocio.ClsNegocioDocente"%>
 <%@page import="java.sql.ResultSet"%>
@@ -10,26 +12,24 @@
 <%@ page import = "java.util.Map" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <%
     String codDocente = String.valueOf(session.getAttribute("codDocente"));
     String nivelUsuario = String.valueOf(session.getAttribute("nivelUsuario"));    
     
     ResultSet rs = null;
     
-    ClsNegocioDocente negDocente = new ClsNegocioDocente();
+    ClsNegocioSemestre negDocente = new ClsNegocioSemestre();
     
     String mensaje = "";
     
-    ArrayList<ClsNegocioDocente> dato = null;
+    ArrayList<ClsNegocioSemestre> dato = null;
 %>
-
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mantenimiento de Docentes | Sistema de Informes UPT</title>
+        <title>Mantenimiento de Semestres | Sistema de Informes UPT</title>
         
         <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,10 +48,10 @@
                 <form class="form-reporte form-consulta shadow">
                     <fieldset>
                         <div class="form-group">
-                            <h2>Mantenimiento de Docentes</h2>
+                            <h2>Mantenimiento de Semestres</h2>
                         </div>
                         <div class="form-group">
-                            <a href="CRUDDocente/NuevoDocente.jsp" class="btn btn-info" >Agregar Docente</a>
+                            <a href="CRUDSemestre/NuevoSemestre.jsp" class="btn btn-info" >Agregar Semestre</a>
                         </div>
                         
                         <div class="form-group">
@@ -59,38 +59,36 @@
                                 <table class="table table-striped table-prueba-entrada" border="1" id="tabla">
                                     <thead>
                                         <tr>                                               
-                                            <th>Código</th>
+                                            <th>Id</th>
                                             <th>Nombre</th>
-                                            <th>Email</th>
-                                            <th>Celular</th>
-                                            <th>Grado</th>
+                                            <th>Año</th>
+                                            <th>Estado</th>
                                             <th>Mantenimiento</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% 
-                                            ClsNegocioDocente datos = new ClsNegocioDocente();
+                                            ClsNegocioSemestre datos = new ClsNegocioSemestre();
 
-                                            dato = datos.MostrarDocentes();
+                                            dato = datos.MostrarSemestres();
 
                                             Iterator iterator = dato.iterator();
 
                                             while (iterator.hasNext()) {
-                                                ClsEntidadDocente objenti = new ClsEntidadDocente();
+                                                ClsEntidadSemestre objenti = new ClsEntidadSemestre();
 
-                                                objenti = (ClsEntidadDocente) iterator.next();
+                                                objenti = (ClsEntidadSemestre) iterator.next();
 
                                                 %>
 
                                                 <tr>
-                                                        <td> <%= objenti.getCodDocente()%> </td>
-                                                        <td> <%= objenti.getNombreDocente()%> </td>
-                                                        <td> <%= objenti.getEmailDocente()%> </td>
-                                                        <td> <%= objenti.getCelularDocente()%> </td>
-                                                        <td> <%= objenti.getGradoDocente()%> </td>
+                                                        <td> <%= objenti.getIdSemestre()%> </td>
+                                                        <td> <%= objenti.getNombreSemestre()%> </td>
+                                                        <td> <%= objenti.getAnioSemestre()%> </td>
+                                                        <td> <%= objenti.getEstadoSemestre()%> </td>
                                                         <td> 
-                                                            <a href="CRUDDocente/ModificarDocente.jsp?codDocente=<%=objenti.getCodDocente()%>" class="btn btn-info" >Modificar</a>
-                                                            <a href="../EliminarDocenteServlet?codDocente=<%=objenti.getCodDocente() %>" class="btn btn-danger" >Eliminar</a>
+                                                            <a href="CRUDSemestre/ModificarSemestre.jsp?idSemestre=<%=objenti.getIdSemestre()%>" class="btn btn-info" >Modificar</a>
+                                                            <a href="../EliminarSemestreServlet?idSemestre=<%=objenti.getIdSemestre() %>" class="btn btn-danger" >Eliminar</a>
                                                         </td>                                                                                                                 
                                                 <%
 

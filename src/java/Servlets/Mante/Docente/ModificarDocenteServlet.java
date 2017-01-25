@@ -80,7 +80,7 @@ public class ModificarDocenteServlet extends HttpServlet {
         ClsEntidadDocente entiDocente = new ClsEntidadDocente();
         ClsNegocioDocente negoDocente = new ClsNegocioDocente();
         
-        String codDoc = negoDocente.ObtenerCodigo();
+        String codDoc = request.getParameter("txtCodigo");
         String nombreDoc = request.getParameter("txtNombre");
         String emailDoc = request.getParameter("txtEmail");
         String celularDoc = request.getParameter("txtCelular");
@@ -101,7 +101,7 @@ public class ModificarDocenteServlet extends HttpServlet {
             Logger.getLogger(GuardarDocenteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        out.println(entiDocente.getCelularDocente());
+//        out.println(entiDocente.getEmailDocente());
         response.sendRedirect("Mantenimiento/MantenimientoDocentes.jsp");
     }
 

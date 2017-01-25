@@ -1,4 +1,6 @@
 
+<%@page import="Negocio.ClsNegocioSemestre"%>
+<%@page import="Entidad.ClsEntidadSemestre"%>
 <%@page import="Entidad.ClsEntidadDocente"%>
 <%@page import="Negocio.ClsNegocioDocente"%>
 <%@page import="java.sql.ResultSet"%>
@@ -13,10 +15,12 @@
 
 <%
     //ClsNegocioDocente negoDocente = new ClsNegocioDocente();
-    String codDocente = request.getParameter("codDocente");
-    ArrayList<String> datosDoc = null;
-    ClsEntidadDocente entDoc = new ClsEntidadDocente();
-    entDoc = new ClsNegocioDocente().MostrarDatosDocente(codDocente);
+    String idSemestre = request.getParameter("idSemestre");
+    ArrayList<String> datosSem = null;
+    ClsEntidadSemestre entSem = new ClsEntidadSemestre();
+    entSem = new ClsNegocioSemestre().MostrarDatosSemestre(idSemestre);
+    
+    String estado = entSem.getEstadoSemestre().equals("Inactivo") ? "selected" : "";
 %>
 
 
@@ -24,7 +28,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mantenimiento de Cursos | Sistema de Informes UPT</title>
+        <title>Mantenimiento de Docentes | Sistema de Informes UPT</title>
         
         <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +45,7 @@
         <div class="container body-padding">
             <div class="row">
                 
-                <form method="POST" action="/SistemaInformesUPTWeb-V2/ModificarDocenteServlet" class="form-reporte form-consulta shadow" >
+                <form method="POST" action="/SistemaInformesUPTWeb-V2/ModificarSemestreServlet" class="form-reporte form-consulta shadow" >
                     <fieldset>
                         <div class="form-group">
                             <h2>Mantenimiento de Docentes</h2>
@@ -50,31 +54,29 @@
                         <div class="form-group">
                             
                             <div class="form-group">
-                                <label style="padding-bottom: .5em;">Código :</label>
-                                <input type="text" name="" value="<%=entDoc.getCodDocente()%>" class="form-control" disabled/>
-                                <input type="hidden" name="txtCodigo" value="<%=entDoc.getCodDocente()%>" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label style="padding-bottom: .5em;">Nombre :</label>
-                                <input type="text" name="txtNombre" value="<%=entDoc.getNombreDocente()%>" class="form-control" />
+                                <label style="padding-bottom: .5em;">ID :</label>
+                                <input type="text" name="" value="<%=entSem.getIdSemestre()%>" class="form-control" disabled="true"/>
+                                <input type="hidden" name="txtID" value="<%=entSem.getIdSemestre()%>" class="form-control" />
                             </div>
                             
-                             <div class="form-group">
-                                <label style="padding-bottom: .5em;">Email :</label>
-                                <input type="email" name="txtEmail" value="<%=entDoc.getEmailDocente()%>" class="form-control" />
+                            <div class="form-group">
+                                <label style="padding-bottom: .5em;">Nombre :</label>
+                                <input type="text" name="txtNombre" value="<%=entSem.getNombreSemestre()%>" class="form-control" />
                             </div>
 
                             <div class="form-group">
                                 <div class="row" >
                                     <div class=" col-lg-6" style="">
-                                        <label style="padding-bottom: .5em;">Celular :</label>
-                                        <input type="text" value="<%=entDoc.getCelularDocente()%>" name="txtCelular" class="form-control">
+                                        <label style="padding-bottom: .5em;">Año :</label>
+                                        <input type="number" value="<%=entSem.getAnioSemestre()%>" name="txtAnio" min="1990" max="2050" class="form-control">
                                     </div>
 
                                     <div class=" col-lg-6" style="">
-                                        <label style="padding-bottom: .5em;">Grado :</label>
-                                        <input type="text" value="<%=entDoc.getGradoDocente()%>" name="txtGrado" class="form-control">
+                                        <label style="padding-bottom: .5em;">Estado :</label>
+                                        <select name="cmbEstado" class="form-control">
+                                            <option value="Activo" >Activo</option>
+                                            <option value="Inactivo" <%=estado%>>Inactivo</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +84,7 @@
                            
 
                             <input type="submit" name="Guardar" value="Guardar" class="btn btn-success" style="margin-top: 35px" />                                                                                                          
-                            <a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoDocentes.jsp" class="btn btn-info" style="margin-top: 35px" >Volver</a>
+                            <a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoSemestres.jsp" class="btn btn-info" style="margin-top: 35px" >Volver</a>
 
                         </div>
                         

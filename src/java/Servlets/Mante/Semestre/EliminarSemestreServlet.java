@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets.Mante.Docente;
+package Servlets.Mante.Semestre;
 
-import Entidad.ClsEntidadDocente;
-import Negocio.ClsNegocioDocente;
+import Negocio.ClsNegocioSemestre;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Drei
  */
-public class GuardarDocenteServlet extends HttpServlet {
+public class EliminarSemestreServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,11 +38,10 @@ public class GuardarDocenteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GuardarDocenteServlet</title>");            
+            out.println("<title>Servlet EliminarSemestreServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GuardarDocenteServlet at " + request.getContextPath() + "</h1>");
-            out.println("!!");
+            out.println("<h1>Servlet EliminarSemestreServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,9 +59,16 @@ public class GuardarDocenteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        PrintWriter out = response.getWriter();
-        out.println("11"); 
+//        processRequest(request, response);
+        ClsNegocioSemestre negoSemestre = new ClsNegocioSemestre();
+        String idSemestre = request.getParameter("idSemestre");
+        negoSemestre.EliminarSemestre(idSemestre);
+        try {
+            negoSemestre.conexion.close();
+        } catch (SQLException ex) { 
+            Logger.getLogger(EliminarSemestreServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        response.sendRedirect("Mantenimiento/MantenimientoSemestres.jsp");
     }
 
     /**
@@ -77,40 +82,14 @@ public class GuardarDocenteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        PrintWriter out = response.getWriter();
-        
-        ClsEntidadDocente entiDocente = new ClsEntidadDocente();
-        ClsNegocioDocente negoDocente = new ClsNegocioDocente();
-        
-        String codDoc = negoDocente.ObtenerCodigo();
-        String nombreDoc = request.getParameter("txtNombre");
-        String emailDoc = request.getParameter("txtEmail");
-        String celularDoc = request.getParameter("txtCelular");
-        String gradoDoc = request.getParameter("txtGrado");
-
-
-
-        entiDocente.setCodDocente(codDoc);
-        entiDocente.setNombreDocente(nombreDoc);
-        entiDocente.setEmailDocente(emailDoc);
-        entiDocente.setCelularDocente(celularDoc);
-        entiDocente.setGradoDocente(gradoDoc);
-        
-        negoDocente.AgregarDocente(entiDocente);
-        
-        try {
-            negoDocente.cst.close();
-            negoDocente.conexion.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(GuardarDocenteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        response.sendRedirect("Mantenimiento/MantenimientoDocentes.jsp");
+        processRequest(request, response);
     }
 
-        
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

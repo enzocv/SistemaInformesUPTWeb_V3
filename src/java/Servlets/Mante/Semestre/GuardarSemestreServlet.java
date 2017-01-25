@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets.Mante.Docente;
+package Servlets.Mante.Semestre;
 
-import Entidad.ClsEntidadDocente;
-import Negocio.ClsNegocioDocente;
+import Entidad.ClsEntidadSemestre;
+import Negocio.ClsNegocioSemestre;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Drei
  */
-public class GuardarDocenteServlet extends HttpServlet {
+public class GuardarSemestreServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,11 +39,10 @@ public class GuardarDocenteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GuardarDocenteServlet</title>");            
+            out.println("<title>Servlet GuardarSemestreServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GuardarDocenteServlet at " + request.getContextPath() + "</h1>");
-            out.println("!!");
+            out.println("<h1>Servlet GuardarSemestreServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,8 +61,6 @@ public class GuardarDocenteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        PrintWriter out = response.getWriter();
-        out.println("11"); 
     }
 
     /**
@@ -78,39 +75,37 @@ public class GuardarDocenteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        PrintWriter out = response.getWriter();
         
-        ClsEntidadDocente entiDocente = new ClsEntidadDocente();
-        ClsNegocioDocente negoDocente = new ClsNegocioDocente();
+        ClsEntidadSemestre entiSem = new ClsEntidadSemestre();
+        ClsNegocioSemestre negoSem = new ClsNegocioSemestre();
         
-        String codDoc = negoDocente.ObtenerCodigo();
-        String nombreDoc = request.getParameter("txtNombre");
-        String emailDoc = request.getParameter("txtEmail");
-        String celularDoc = request.getParameter("txtCelular");
-        String gradoDoc = request.getParameter("txtGrado");
-
-
-
-        entiDocente.setCodDocente(codDoc);
-        entiDocente.setNombreDocente(nombreDoc);
-        entiDocente.setEmailDocente(emailDoc);
-        entiDocente.setCelularDocente(celularDoc);
-        entiDocente.setGradoDocente(gradoDoc);
         
-        negoDocente.AgregarDocente(entiDocente);
+        String nombreSem = request.getParameter("txtNombre");
+        String anioSem = request.getParameter("txtAnio");
+        String estadoSem = request.getParameter("cmbEstado");
+
+        entiSem.setNombreSemestre(nombreSem);
+        entiSem.setAnioSemestre(anioSem);
+        entiSem.setEstadoSemestre(estadoSem);
+        
+        negoSem.AgregarSemestre(entiSem);
         
         try {
-            negoDocente.cst.close();
-            negoDocente.conexion.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(GuardarDocenteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            negoSem.cst.close();
+            negoSem.conexion.close();
+        } catch (SQLException ex) { 
+            Logger.getLogger(GuardarSemestreServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        response.sendRedirect("Mantenimiento/MantenimientoDocentes.jsp");
+        response.sendRedirect("Mantenimiento/MantenimientoSemestres.jsp");
     }
 
-        
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

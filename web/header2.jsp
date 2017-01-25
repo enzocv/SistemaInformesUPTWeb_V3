@@ -75,6 +75,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoCursos.jsp">Cursos</a></li>
                                             <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoDocentes.jsp">Docentes</a></li>
+                                            <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoSemestres.jsp">Semestres</a></li>
                                         </ul>
                                     </li>
                 <%

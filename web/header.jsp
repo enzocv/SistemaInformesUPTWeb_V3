@@ -97,6 +97,7 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a href="Mantenimiento/MantenimientoCursos.jsp">Cursos</a></li>
                                                     <li><a href="Mantenimiento/MantenimientoDocentes.jsp">Docentes</a></li>
+                                                    <li><a href="Mantenimiento/MantenimientoSemestres.jsp">Semestres</a></li>
                                                 </ul>
                                             </li>
                         <%

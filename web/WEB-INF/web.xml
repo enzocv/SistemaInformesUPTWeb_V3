@@ -60,6 +60,18 @@
         <servlet-name>ModificarDocenteServlet</servlet-name>
         <servlet-class>Servlets.Mante.Docente.ModificarDocenteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuardarSemestreServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Semestre.GuardarSemestreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarSemestreServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Semestre.ModificarSemestreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EliminarSemestreServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Semestre.EliminarSemestreServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
         <url-pattern>/GuardarInfoFinal</url-pattern>
@@ -119,6 +131,18 @@
     <servlet-mapping>
         <servlet-name>ModificarDocenteServlet</servlet-name>
         <url-pattern>/ModificarDocenteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarSemestreServlet</servlet-name>
+        <url-pattern>/GuardarSemestreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarSemestreServlet</servlet-name>
+        <url-pattern>/ModificarSemestreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarSemestreServlet</servlet-name>
+        <url-pattern>/EliminarSemestreServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
