@@ -76,6 +76,7 @@
                                             <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoCursos.jsp">Cursos</a></li>
                                             <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoDocentes.jsp">Docentes</a></li>
                                             <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoSemestres.jsp">Semestres</a></li>
+                                            <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoPlanEstudio.jsp">Plan de Estudio</a></li>
                                         </ul>
                                     </li>
                 <%

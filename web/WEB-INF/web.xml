@@ -72,6 +72,26 @@
         <servlet-name>EliminarSemestreServlet</servlet-name>
         <servlet-class>Servlets.Mante.Semestre.EliminarSemestreServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarPlanEstudio</servlet-name>
+        <servlet-class>Servlets.MantePlanEstudio.EliminarPlanEstudioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarPlanEstudio</servlet-name>
+        <servlet-class>Servlets.MantePlanEstudio.ModificarPlanEstudioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prueba</servlet-name>
+        <servlet-class>Servlets.MantePlanEstudio.GuardarPlanEstudioServlet2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prueba2</servlet-name>
+        <servlet-class>Servlets.MantePlanEstudio.prueba2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>pruebaElimina</servlet-name>
+        <servlet-class>Servlets.MantePlanEstudio.pruebaElimina</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
         <url-pattern>/GuardarInfoFinal</url-pattern>
@@ -143,6 +163,26 @@
     <servlet-mapping>
         <servlet-name>EliminarSemestreServlet</servlet-name>
         <url-pattern>/EliminarSemestreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarPlanEstudio</servlet-name>
+        <url-pattern>/EliminarPlanEstudio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarPlanEstudio</servlet-name>
+        <url-pattern>/ModificarPlanEstudio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prueba</servlet-name>
+        <url-pattern>/prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prueba2</servlet-name>
+        <url-pattern>/prueba2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pruebaElimina</servlet-name>
+        <url-pattern>/pruebaElimina</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
