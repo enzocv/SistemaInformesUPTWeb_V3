@@ -50,7 +50,7 @@
         <div class="container body-padding">
             <div class="row">
                 
-                <form method="POST" action="/SistemaInformesUPTWeb-V2/ModificarSemestreServlet" class="form-reporte form-consulta shadow" >
+                <form method="POST" action="/SistemaInformesUPTWeb-V2/ModificaPlanEstudioServ" class="form-reporte form-consulta shadow" >
                     <fieldset>
                         <div class="form-group">
                             <h2>Mantenimiento de Docentes</h2>
@@ -60,18 +60,18 @@
                             
                             <div class="form-group">
                                 <label style="padding-bottom: .5em;">ID :</label>
-                                <input type="text" name="" value="" class="form-control" disabled="true"/>
-                                <input type="hidden" name="txtID" value="" class="form-control" />
+                                <input type="text" name="" value="<%= ent.getIdPlanEstudio() %>" class="form-control" disabled="true"/>
+                                <input type="hidden" name="txtID" value="<%= ent.getIdPlanEstudio() %>" class="form-control" />
                             </div>
                             
                             <div class="form-group">
                                 <label style="padding-bottom: .5em;">Nombre :</label>
-                                <input type="text" name="txtNombre" value="" class="form-control" />
+                                <input type="text" name="txtNombre" value="<%= ent.getNombrePlanEstudio()%>" class="form-control" />
                             </div>
 
 
                             <input type="submit" name="Guardar" value="Guardar" class="btn btn-success" style="margin-top: 35px" />                                                                                                          
-                            <a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoSemestres.jsp" class="btn btn-info" style="margin-top: 35px" >Volver</a>
+                            <a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoPlanEstudio.jsp" class="btn btn-info" style="margin-top: 35px" >Volver</a>
 
                         </div>
                         
