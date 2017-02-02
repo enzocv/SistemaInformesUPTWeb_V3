@@ -92,6 +92,18 @@
         <servlet-name>ModificaPlanEstudioServ</servlet-name>
         <servlet-class>Servlets.MantePlanEstudio.ModificaPlanEstudioServ</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>nuevoCargaAcedemica</servlet-name>
+        <servlet-class>Servlets.CargaAcademica.nuevoCargaAcedemica</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Elimina</servlet-name>
+        <servlet-class>Servlets.CargaAcademica.Elimina</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>modificaCargaAcedemica</servlet-name>
+        <servlet-class>Servlets.CargaAcademica.modificaCargaAcedemica</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
         <url-pattern>/GuardarInfoFinal</url-pattern>
@@ -183,6 +195,18 @@
     <servlet-mapping>
         <servlet-name>ModificaPlanEstudioServ</servlet-name>
         <url-pattern>/ModificaPlanEstudioServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>nuevoCargaAcedemica</servlet-name>
+        <url-pattern>/nuevoCargaAcedemica</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Elimina</servlet-name>
+        <url-pattern>/Elimina</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>modificaCargaAcedemica</servlet-name>
+        <url-pattern>/modificaCargaAcedemica</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
