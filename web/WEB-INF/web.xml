@@ -92,6 +92,18 @@
         <servlet-name>ModificaPlanEstudioServ</servlet-name>
         <servlet-class>Servlets.MantePlanEstudio.ModificaPlanEstudioServ</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarUsuarioServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Usuario.EliminarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GuardarUsuarioServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Usuario.GuardarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarUsuarioServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Usuario.ModificarUsuarioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
         <url-pattern>/GuardarInfoFinal</url-pattern>
@@ -183,6 +195,18 @@
     <servlet-mapping>
         <servlet-name>ModificaPlanEstudioServ</servlet-name>
         <url-pattern>/ModificaPlanEstudioServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarUsuarioServlet</servlet-name>
+        <url-pattern>/EliminarUsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarUsuarioServlet</servlet-name>
+        <url-pattern>/GuardarUsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarUsuarioServlet</servlet-name>
+        <url-pattern>/ModificarUsuarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
