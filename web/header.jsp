@@ -99,7 +99,7 @@
                                                     <li><a href="Mantenimiento/MantenimientoDocentes.jsp">Docentes</a></li>
                                                     <li><a href="Mantenimiento/MantenimientoSemestres.jsp">Semestres</a></li>
                                                     <li><a href="Mantenimiento/MantenimientoPlanEstudio.jsp">Plan de Estudio</a></li>
-                                                    
+                                                    <li><a href="Mantenimiento/MantenimientoUsuarios.jsp">Usuarios</a></li>
                                                     <li><a href="/SistemaInformesUPTWeb-V2/Mantenimiento/MantenimientoCargaAcademica.jsp">Carga Academica</a></li>
                                                 </ul>
                                             </li>

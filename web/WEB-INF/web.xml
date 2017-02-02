@@ -93,6 +93,7 @@
         <servlet-class>Servlets.MantePlanEstudio.ModificaPlanEstudioServ</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>nuevoCargaAcedemica</servlet-name>
         <servlet-class>Servlets.CargaAcademica.nuevoCargaAcedemica</servlet-class>
     </servlet>
@@ -103,6 +104,18 @@
     <servlet>
         <servlet-name>modificaCargaAcedemica</servlet-name>
         <servlet-class>Servlets.CargaAcademica.modificaCargaAcedemica</servlet-class>
+=======
+        <servlet-name>EliminarUsuarioServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Usuario.EliminarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GuardarUsuarioServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Usuario.GuardarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarUsuarioServlet</servlet-name>
+        <servlet-class>Servlets.Mante.Usuario.ModificarUsuarioServlet</servlet-class>
+>>>>>>> 7e92024ca60174732d00751e415519114a2e04f8
     </servlet>
     <servlet-mapping>
         <servlet-name>GuardarInfoFinal</servlet-name>
@@ -197,6 +210,7 @@
         <url-pattern>/ModificaPlanEstudioServ</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>nuevoCargaAcedemica</servlet-name>
         <url-pattern>/nuevoCargaAcedemica</url-pattern>
     </servlet-mapping>
@@ -207,6 +221,18 @@
     <servlet-mapping>
         <servlet-name>modificaCargaAcedemica</servlet-name>
         <url-pattern>/modificaCargaAcedemica</url-pattern>
+=======
+        <servlet-name>EliminarUsuarioServlet</servlet-name>
+        <url-pattern>/EliminarUsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarUsuarioServlet</servlet-name>
+        <url-pattern>/GuardarUsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarUsuarioServlet</servlet-name>
+        <url-pattern>/ModificarUsuarioServlet</url-pattern>
+>>>>>>> 7e92024ca60174732d00751e415519114a2e04f8
     </servlet-mapping>
     <session-config>
         <session-timeout>
